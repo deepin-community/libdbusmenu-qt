@@ -1,0 +1,59 @@
+Source: libdbusmenu-qt
+Section: libs
+Priority: optional
+Build-Depends: debhelper (>= 9),
+ cmake (>= 2.8.11),
+ qtbase5-dev,
+ pkg-config,
+ doxygen
+Maintainer: Debian Krap Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Praveen Arimbrathodiyil <pravi.a@gmail.com>,
+ Modestas Vainius <modax@debian.org>,
+ Pino Toscano <pino@debian.org>
+Standards-Version: 3.9.6
+Homepage: https://launchpad.net/libdbusmenu-qt
+Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/libdbusmenu-qt.git
+Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/libdbusmenu-qt
+
+Package: libdbusmenu-qt5-2
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+ ${shlibs:Depends}
+Multi-Arch: same
+Description: Qt implementation of the DBusMenu protocol
+ This library provides a Qt implementation of the DBusMenu protocol.
+ .
+ The DBusMenu protocol makes it possible for applications to export
+ and import their menus over D-Bus.
+ .
+ This package provides the libdbusmenu-qt2 shared library.
+
+Package: libdbusmenu-qt5-dev
+Section: libdevel
+Architecture: any
+Depends: libdbusmenu-qt5-2 (= ${binary:Version}),
+ qtbase5-dev,
+ ${misc:Depends}
+Description: Qt implementation of the DBusMenu protocol (development)
+ This library provides a Qt implementation of the DBusMenu protocol.
+ .
+ The DBusMenu protocol makes it possible for applications to export
+ and import their menus over D-Bus.
+ .
+ This package provides header files and CMake configuration files for
+ development.
+
+Package: libdbusmenu-qt5-doc
+Section: doc
+Architecture: all
+Depends: libjs-jquery,
+ ${misc:Depends}
+Suggests: w3m | www-browser
+Description: Qt implementation of the DBusMenu protocol (documentation)
+ This library provides a Qt implementation of the DBusMenu protocol.
+ .
+ The DBusMenu protocol makes it possible for applications to export
+ and import their menus over D-Bus.
+ .
+ This package provides API documentation in HTML format.

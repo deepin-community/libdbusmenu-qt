@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ --parallel --buildsystem=cmake
+
+override_dh_auto_configure:
+	QT_SELECT=qt5 dh_auto_configure -- -DUSE_QT5=True
+
+override_dh_auto_build:
+	dh_auto_build
+
+override_dh_auto_install:
+	dh_auto_install
+	# Removing embedded jquery javascript library
+	rm debian/tmp/usr/share/doc/libdbusmenu-qt5-doc/jquery.js
+
+override_dh_install:
+	dh_install --fail-missing
+
+override_dh_strip:
+	dh_strip -plibdbusmenu-qt5-2 --dbgsym-migration='libdbusmenu-qt5-dbg (<< 0.9.3+16.04.20160218)'
+	dh_strip --remaining-packages --dbgsym-migration='libdbusmenu-qt-dbg (<< 0.9.3+16.04.20160218)'
+
+override_dh_auto_test:
+	# Skipping tests (can't test inside chroot)...
+	:

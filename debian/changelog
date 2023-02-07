@@ -1,3 +1,9 @@
+libdbusmenu-qt (0.9.3+16.04.20160218-deepin2) unstable; urgency=medium
+
+  * Fix action icon not showing
+
+ -- zsien <quezhiyogn@uniontech.com>  Wed, 08 Feb 2023 14:59:31 +0800
+
 libdbusmenu-qt (0.9.3+16.04.20160218-deepin1) unstable; urgency=medium
 
   * Rebuild

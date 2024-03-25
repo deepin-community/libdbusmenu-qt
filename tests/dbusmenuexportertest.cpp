@@ -127,20 +127,23 @@ void DBusMenuExporterTest::testGetAllProperties()
 {
     // set of properties which must be returned because their values are not
     // the default values
-    const QSet<QString> a1Properties = QSet<QString>()
+    QStringList a1Properties = QStringList()
         << "label"
         ;
+    a1Properties.sort();
 
-    const QSet<QString> separatorProperties = QSet<QString>()
+    QStringList separatorProperties = QStringList()
         << "type";
+    separatorProperties.sort();
 
-    const QSet<QString> a2Properties = QSet<QString>()
+    QStringList a2Properties = QStringList()
         << "label"
         << "enabled"
         << "icon-name"
         << "icon-data" // Icon data is always provided if the icon is valid.
         << "visible"
         ;
+    a2Properties.sort();
 
     // Create the menu items
     QMenu inputMenu;
@@ -168,13 +171,19 @@ void DBusMenuExporterTest::testGetAllProperties()
 
     // Check we get the right properties
     DBusMenuLayoutItem item = list.takeFirst();
-    QCOMPARE(QSet<QString>::fromList(item.properties.keys()), a1Properties);
+    auto pKeys = item.properties.keys();
+    pKeys.sort();
+    QCOMPARE(pKeys, a1Properties);
 
     item = list.takeFirst();
-    QCOMPARE(QSet<QString>::fromList(item.properties.keys()), separatorProperties);
+    pKeys = item.properties.keys();
+    pKeys.sort();
+    QCOMPARE(pKeys, separatorProperties);
 
     item = list.takeFirst();
-    QCOMPARE(QSet<QString>::fromList(item.properties.keys()), a2Properties);
+    pKeys = item.properties.keys();
+    pKeys.sort();
+    QCOMPARE(pKeys, a2Properties);
 }
 
 void DBusMenuExporterTest::testGetNonExistentProperty()
@@ -206,7 +215,7 @@ void DBusMenuExporterTest::testClickedEvent()
     int id = list.first().id;
 
     QVariant empty = QVariant::fromValue(QDBusVariant(QString()));
-    uint timestamp = QDateTime::currentDateTime().toTime_t();
+    qint64 timestamp = QDateTime::currentDateTime().toSecsSinceEpoch();
     iface.call("Event", id, "clicked", empty, timestamp);
     QTest::qWait(500);
 
@@ -331,7 +340,7 @@ void DBusMenuExporterTest::testRadioItems()
     QDBusConnection::sessionBus().connect(TEST_SERVICE, TEST_OBJECT_PATH, "com.canonical.dbusmenu", "ItemsPropertiesUpdated", "a(ia{sv})a(ias)",
         &spy, SLOT(receiveCall(DBusMenuItemList, DBusMenuItemKeysList)));
     QVariant empty = QVariant::fromValue(QDBusVariant(QString()));
-    uint timestamp = QDateTime::currentDateTime().toTime_t();
+    qint64 timestamp = QDateTime::currentDateTime().toSecsSinceEpoch();
     iface.call("Event", a2Id, "clicked", empty, timestamp);
     QTest::qWait(500);
 
@@ -414,7 +423,7 @@ void DBusMenuExporterTest::testClickDeletedAction()
 
     // Send a click to deleted a1
     QVariant empty = QVariant::fromValue(QDBusVariant(QString()));
-    uint timestamp = QDateTime::currentDateTime().toTime_t();
+    qint64 timestamp = QDateTime::currentDateTime().toSecsSinceEpoch();
     iface.call("Event", id, "clicked", empty, timestamp);
     QTest::qWait(500);
 }

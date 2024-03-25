@@ -1,5 +1,5 @@
 # SymbolsHelper-Confirmed: 0.9.3+15.10.20150604 amd64
-libdbusmenu-qt5.so.2 libdbusmenu-qt5-2 #MINVER#
+libdbusmenu-qt6.so.2 libdbusmenu-qt6-2 #MINVER#
 * Build-Depends-Package: libdbusmenu-qt5-dev
  (optional=gccinternal)_ZN10QByteArrayD1Ev@Base 0.9.3+14.10.20140619
  (optional=gccinternal)_ZN10QByteArrayD2Ev@Base 0.9.3+14.10.20140619

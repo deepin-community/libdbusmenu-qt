@@ -25,6 +25,7 @@
 #include <QtDBus>
 #include <QtGui>
 #include <QApplication>
+#include <QElapsedTimer>
 
 static const char *TEST_SERVICE = "org.kde.dbusmenu-qt-test";
 static const char *TEST_OBJECT_PATH = "/TestMenuBar";
@@ -38,7 +39,7 @@ SlowMenu::SlowMenu()
 void SlowMenu::slotAboutToShow()
 {
     qDebug() << __FUNCTION__ << "Entering";
-    QTime time;
+    QElapsedTimer time;
     time.start();
     while (time.elapsed() < 2000) {
         qApp->processEvents();

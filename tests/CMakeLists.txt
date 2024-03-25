@@ -1,9 +1,9 @@
-if (NOT USE_QT5)
+if (NOT USE_QT5 AND NOT USE_QT6)
     qt4_automoc(slowmenu.cpp)
 endif()
 add_executable(slowmenu slowmenu.cpp)
 
-if (NOT USE_QT5)
+if (NOT USE_QT5 AND NOT USE_QT6)
     target_link_libraries(slowmenu
         ${QT_QTGUI_LIBRARIES}
         ${QT_QTDBUS_LIBRARIES}
@@ -26,30 +26,55 @@ if (NOT USE_QT5)
         ${QT_QTTEST_INCLUDE_DIR}
         ${QT_QTDBUS_INCLUDE_DIR}
         )
+elseif(USE_QT5)
+        find_package(Qt5Test REQUIRED)
+    
+        target_link_libraries(slowmenu
+            ${Qt5Gui_LIBRARIES}
+            ${Qt5Core_LIBRARIES}
+            ${Qt5DBus_LIBRARIES}
+            dbusmenu-qt5
+        )
+    
+        set(test_LIBRARIES
+            ${Qt5Gui_LIBRARIES}
+            ${Qt5Core_LIBRARIES}
+            ${Qt5DBus_LIBRARIES}
+            ${Qt5Test_LIBRARIES}
+            dbusmenu-qt5
+        )
+    
+        include_directories(
+            ${CMAKE_CURRENT_SOURCE_DIR}/../src
+            ${CMAKE_CURRENT_BINARY_DIR}/../src
+            ${CMAKE_CURRENT_BINARY_DIR}
+            ${Qt5Test_INCLUDE_DIRS}
+            ${Qt5DBus_INCLUDE_DIRS}
+            )
 else()
-    find_package(Qt5Test REQUIRED)
+    find_package(Qt6Test REQUIRED)
 
     target_link_libraries(slowmenu
-        ${Qt5Gui_LIBRARIES}
-        ${Qt5Core_LIBRARIES}
-        ${Qt5DBus_LIBRARIES}
-        dbusmenu-qt5
+        ${Qt6Gui_LIBRARIES}
+        ${Qt6Core_LIBRARIES}
+        ${Qt6DBus_LIBRARIES}
+        dbusmenu-qt6
     )
 
     set(test_LIBRARIES
-        ${Qt5Gui_LIBRARIES}
-        ${Qt5Core_LIBRARIES}
-        ${Qt5DBus_LIBRARIES}
-        ${Qt5Test_LIBRARIES}
-        dbusmenu-qt5
+        ${Qt6Gui_LIBRARIES}
+        ${Qt6Core_LIBRARIES}
+        ${Qt6DBus_LIBRARIES}
+        ${Qt6Test_LIBRARIES}
+        dbusmenu-qt6
     )
 
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/../src
         ${CMAKE_CURRENT_BINARY_DIR}/../src
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${Qt5Test_INCLUDE_DIRS}
-        ${Qt5DBus_INCLUDE_DIRS}
+        ${Qt6Test_INCLUDE_DIRS}
+        ${Qt6DBus_INCLUDE_DIRS}
         )
 endif()
 
@@ -77,7 +102,7 @@ set(dbusmenuexportertest_SRCS
     testutils.cpp
     )
 
-if (NOT USE_QT5)
+if (NOT USE_QT5 AND NOT USE_QT6)
     qt4_automoc(${dbusmenuexportertest_SRCS})
 endif()
 
@@ -94,7 +119,7 @@ set(dbusmenuimportertest_SRCS
     testutils.cpp
     )
 
-if (NOT USE_QT5)
+if (NOT USE_QT5 AND NOT USE_QT6)
     qt4_automoc(${dbusmenuimportertest_SRCS})
 endif()
 
@@ -110,7 +135,7 @@ set(dbusmenushortcuttest_SRCS
     dbusmenushortcuttest.cpp
     )
 
-if (NOT USE_QT5)
+if (NOT USE_QT5 AND NOT USE_QT6)
     qt4_automoc(${dbusmenushortcuttest_SRCS})
 endif()
 

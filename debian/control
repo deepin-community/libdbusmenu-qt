@@ -15,7 +15,7 @@ Homepage: https://launchpad.net/libdbusmenu-qt
 Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/libdbusmenu-qt.git
 Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/libdbusmenu-qt
 
-Package: libdbusmenu-qt5-2
+Package: libdbusmenu-qt6-2
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
@@ -29,10 +29,10 @@ Description: Qt implementation of the DBusMenu protocol
  .
  This package provides the libdbusmenu-qt2 shared library.
 
-Package: libdbusmenu-qt5-dev
+Package: libdbusmenu-qt6-dev
 Section: libdevel
 Architecture: any
-Depends: libdbusmenu-qt5-2 (= ${binary:Version}),
+Depends: libdbusmenu-qt6-2 (= ${binary:Version}),
  qtbase5-dev,
  ${misc:Depends}
 Description: Qt implementation of the DBusMenu protocol (development)
@@ -44,7 +44,7 @@ Description: Qt implementation of the DBusMenu protocol (development)
  This package provides header files and CMake configuration files for
  development.
 
-Package: libdbusmenu-qt5-doc
+Package: libdbusmenu-qt6-doc
 Section: doc
 Architecture: all
 Depends: libjs-jquery,
